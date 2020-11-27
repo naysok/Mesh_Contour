@@ -3,12 +3,20 @@ import rhinoscriptsyntax as rs
 
 class RhinoRenderer():
 
+
     """
 
-    Defined
+    ########################
+    ####                 ###
+    ####     Defined     ###
+    ####                 ###
+    ########################
 
     ### point
     vert = [x0, y0, z0]
+
+    ### points
+    verts = [[x0, y0, z0], [x1, y1, z1], , , , , , ,  [xn, yn, zn]]
     
     ### line
     vert2 = [[x0, y0, z0], [x1, y1, z1]]
@@ -19,9 +27,40 @@ class RhinoRenderer():
     """
 
 
+    ################################################################################
+
+
     def add_point(self, vert):
         
         return rs.AddPoint(vert)
+
+
+    def add_points(self, verts):
+
+        pts = []
+
+        for i in xrange(len(verts)):
+            p = verts[i]
+            pt = rs.AddPoint(p)
+            pts.append(pt)
+        
+        return pts
+
+
+    def render_points(self, points):
+
+        ### Render Points (or Point)
+
+        ### Segment Point / Points
+        if (len(points) ==3) and (type(points[0]) == float):
+            rendered = self.add_point(points)
+        else:
+            rendered = self.add_points(points)
+        
+        return rendered
+
+
+    ################################################################################
 
 
     def add_line(self, vert2):
@@ -30,6 +69,9 @@ class RhinoRenderer():
         p1 = rs.AddPoint(vert2[1])
         
         return rs.AddLine(p0, p1)
+
+
+    ################################################################################
 
 
     def vert3_to_points(self, vert3):
@@ -51,10 +93,10 @@ class RhinoRenderer():
     
     def add_mesh(self, verts3):
         
-        ### Convert Number-List to Point
+        ### Convert verts(Number-List) to Point
         
         points = self.vert3_to_points(verts3)
-        print(points)
+        # print(points)
         
         ### Create Mesh
         m = rs.AddMesh(points, [[0, 1, 2]])
