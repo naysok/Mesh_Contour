@@ -16,11 +16,17 @@ class RhinoRenderer():
     vert = [x0, y0, z0]
 
     ### points
+    verts = [vert, vert, , , , , ,  vert]
     verts = [[x0, y0, z0], [x1, y1, z1], , , , , , ,  [xn, yn, zn]]
     
     ### line
+    vert2 = [vert, vert]
     vert2 = [[x0, y0, z0], [x1, y1, z1]]
-    
+
+    ### lines
+    vert2s = [vert2, vert2, , , , , , vert2]
+    vert2s = [[[x0, y0, z0], [x1, y1, z1]], , , , , , [[xm, ym, zm], [xn, yn, zn]]]
+
     ### mesh
     vert3 = [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]]
     
@@ -52,7 +58,7 @@ class RhinoRenderer():
         ### Render Points (or Point)
 
         ### Segment Point / Points
-        if (len(points) ==3) and (type(points[0]) == float):
+        if (len(points) == 3) and (type(points[0]) == float):
             rendered = self.add_point(points)
         else:
             rendered = self.add_points(points)
@@ -69,6 +75,31 @@ class RhinoRenderer():
         p1 = rs.AddPoint(vert2[1])
         
         return rs.AddLine(p0, p1)
+    
+
+    def add_lines(self, vert2s):
+
+        lines = []
+
+        for i in xrange(len(vert2s)):
+            vert2 = vert2s[i]
+            line = self.add_line(vert2)
+            lines.append(line)
+
+        return lines
+
+
+    def render_lines(self, lines):
+        
+        ### Render Lines (or Line)
+
+        ### Segment Line / Lines
+        if (len(lines) == 2) and (len(lines[0]) == 3):
+            rendered = self.add_line(lines)
+        else:
+            rendered = self.add_lines(lines)
+
+        return rendered
 
 
     ################################################################################
