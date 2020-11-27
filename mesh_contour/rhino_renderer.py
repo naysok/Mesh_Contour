@@ -3,18 +3,28 @@ import rhinoscriptsyntax as rs
 
 class RhinoRenderer():
 
+    """
+
+    Defined
+
+    ### point
+    vert = [x0, y0, z0]
+    
+    ### line
+    vert2 = [[x0, y0, z0], [x1, y1, z1]]
+    
+    ### mesh
+    vert3 = [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]]
+    
+    """
+
+
     def add_point(self, vert):
-        
-        ### vert = [x0, y0, z0]
-        ### vert = point
         
         return rs.AddPoint(vert)
 
 
     def add_line(self, vert2):
-
-        ### vert2 = [[x0, y0, z0], [x1, y1, z1]]
-        ### vert2 = line
 
         p0 = rs.AddPoint(vert2[0])
         p1 = rs.AddPoint(vert2[1])
@@ -23,10 +33,7 @@ class RhinoRenderer():
 
 
     def vert3_to_points(self, vert3):
-        
-        ### vert3 = [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]]
-        ### vert3 = mesh
-        
+                
         # print(vert3)
 
         points = []
@@ -46,9 +53,6 @@ class RhinoRenderer():
         
         ### Convert Number-List to Point
         
-        ### vert3 = [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]]
-        ### points = [Point3d, Point3d, Point3d]
-
         points = self.vert3_to_points(verts3)
         print(points)
         
