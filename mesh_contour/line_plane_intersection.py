@@ -9,10 +9,10 @@ cv = calc_vector.CalcVector()
 class LinePlaneIntersection():
 
 
-    def calc_line_plane_intersection(self, line, h):
+    def calc_line_plane_intersection(self, line, height):
 
         ### line = [[x0, y0, z0], [x1, y1, z1]]
-        ### h = value (Z-Pos)
+        ### height = value (Z-Pos)
 
         ### Ray Triangle Intersection
         ### https://pheema.hatenablog.jp/entry/ray-triangle-intersection
@@ -22,9 +22,9 @@ class LinePlaneIntersection():
 
         o = p0
         d = p0_p1
-        v0 = [0, 0, h]
-        v1 = [10, 0, h]
-        v2 = [0, 10, h]
+        v0 = [0, 0, height]
+        v1 = [10, 0, height]
+        v2 = [0, 10, height]
 
         e1 = cv.vector_subtract(v1, v0)
         e2 = cv.vector_subtract(v2, v0)
@@ -71,3 +71,28 @@ class LinePlaneIntersection():
         intersect_pos = cv.vector_add_3(new_v0, new_v1, new_v2)
 
         return intersect_pos
+    
+
+    def calc_mesh_plane_intersection(self, mesh, height):
+
+        ### mesh = [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]]
+        ### height = value (Z-Pos)
+
+        result = []
+
+        line_0 = [mesh[0], mesh[1]]
+        line_1 = [mesh[0], mesh[2]]
+        line_2 = [mesh[1], mesh[2]]
+
+        r0 = self.calc_line_plane_intersection(line_0, height)
+        r1 = self.calc_line_plane_intersection(line_1, height)
+        r2 = self.calc_line_plane_intersection(line_2, height)
+
+        if r0 != None:
+            result.append(r0)
+        if r1 != None:
+            result.append(r1)
+        if r2 != None:
+            result.append(r2)
+
+        return result
