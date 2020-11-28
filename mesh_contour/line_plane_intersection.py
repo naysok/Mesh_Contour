@@ -2,7 +2,7 @@ import sys
 
 
 from . import calc_vector
-reload(calc_vector)
+# reload(calc_vector)
 cv = calc_vector.CalcVector()
 
 
@@ -78,7 +78,7 @@ class LinePlaneIntersection():
         ### mesh = [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]]
         ### height = value (Z-Pos)
 
-        result = []
+        points = []
 
         line_0 = [mesh[0], mesh[1]]
         line_1 = [mesh[0], mesh[2]]
@@ -89,10 +89,33 @@ class LinePlaneIntersection():
         r2 = self.calc_line_plane_intersection(line_2, height)
 
         if r0 != None:
-            result.append(r0)
+            points.append(r0)
         if r1 != None:
-            result.append(r1)
+            points.append(r1)
         if r2 != None:
-            result.append(r2)
+            points.append(r2)
 
-        return result
+        line = points
+
+        return line
+    
+
+    def calc_meshes_plane_intersection(self, meshes, height):
+
+        ### meshes = [
+        #   [[x0, y0, z0], [x1, y1, z1], [x2, y2, z2]],
+        #   [[x3, y3, z3], [x4, y4, z4], [x2, y2, z2]],
+        #   [[x6, y6, z6], [x7, y7, z7], [x8, y8, z8]]
+        # ]
+        ### height = value (Z-Pos)
+
+        height_f = float(height)
+
+        lines = []
+
+        for i in xrange(len(meshes)):
+            mesh = meshes[i]
+            line = self.calc_mesh_plane_intersection(mesh, height_f)
+            lines.append(line)
+        
+        return lines
