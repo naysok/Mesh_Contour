@@ -149,3 +149,26 @@ class StlParser():
             i += 1
 
         return stl_meshes
+
+
+    def meshes_z_range(eslf, meshes):
+
+        ### Get Z-Range
+        ### z-range = [Min, Max]
+        
+        range_list = []
+
+        for i in range(len(meshes)):
+
+            m = meshes[i]
+            v0 = m[0]
+            v1 = m[1]
+            v2 = m[2]
+
+            z_all = [v0[2], v1[2], v2[2]]
+
+            z_range = [min(z_all), max(z_all)]
+
+            range_list.append(z_range)
+        
+        return range_list
