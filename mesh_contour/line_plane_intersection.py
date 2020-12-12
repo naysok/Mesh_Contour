@@ -113,7 +113,7 @@ class LinePlaneIntersection():
 
         lines = []
 
-        for i in xrange(len(meshes)):
+        for i in range(len(meshes)):
             mesh = meshes[i]
             line = self.calc_mesh_plane_intersection(mesh, height_f)
             lines.append(line)
